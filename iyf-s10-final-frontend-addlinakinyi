@@ -1,0 +1,29 @@
+import React, { useState, useEffect } from 'react';
+
+function App() {
+  const [members, setMembers] = useState([]);
+  // Replace the URL below with your Render URL once deployed
+  const API_URL = "https://your-backend-name.onrender.com/api/members";
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(data => setMembers(data))
+      .catch(err => console.error("Error fetching data:", err));
+  }, []);
+
+  return (
+    <div style={{ padding: '20px', textAlign: 'center' }}>
+      <h1>CommunityHub Final Project</h1>
+      <div className="member-list">
+        {members.map(m => (
+          <div key={m.id} style={{ border: '1px solid #ccc', margin: '10px' }}>
+            {m.name} - {m.role}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default App;
